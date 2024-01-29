@@ -14,18 +14,24 @@ const {createApp} = Vue;
 const endpoint = 'https://flynn.boolean.careers/exercises/api/random/mail';
 
 const app = createApp ({
-    data: () => ({}),
+    data: () => ({
+        emailList: []
+    }),
     created() {
-        axios.get(endpoint).then(res => {
-            //* Da eseguire in caso di successo
-            console.log(res.data)
-        })
-        .catch((err) => {
-            //! Da eseguire in caso di errore (es un alert)
-        })
-        .then(() => {
-            //^ Da eseguire in ogni caso (es un loading)
-        })
+        for(let i = 0; i < 10; i++) {
+            axios.get(endpoint).then(res => {
+                //* Da eseguire in caso di successo
+                
+                //& Ciclo per avere più indirizzi
+                this.emailList.push(res.data.response);
+            })
+            .catch((err) => {
+                //! Da eseguire in caso di errore (es un alert)
+            })
+            .then(() => {
+                //^ Da eseguire in ogni caso (es un loading)
+            })
+        }
     }
 });
 
